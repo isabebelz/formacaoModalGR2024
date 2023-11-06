@@ -1,30 +1,47 @@
+import java.security.SecureRandom;
 import java.util.Base64;
 
 public class Main {
-
     public static void main(String[] args) {
 
-        String[] passwords = {"#IsabelNosEstagiariosModalGR2024!", "#MaiorEmpresaDeTecnologiaDaBaixada!!!", "#MeDaUmaVagaModal!!!!"};
-        byte[] salt = new byte[16];
+        String[] passwords = {"#senha1!##", "#senha2!##", "#senha3!##"};
 
+        AESCrypto cryptoAES = new AESCrypto();
 
-        AESCrypto crypto = new AESCrypto(salt);
+        SecureRandom random = new SecureRandom();
 
-        for (String password : passwords) {
-            byte[] iv = new byte[16]; // Use um IV único para cada senha
-            byte[] encryptedPassword = crypto.encryptPassword(password, iv);
+        byte[] iv1 = new byte[16];
+        random.nextBytes(iv1);
+        byte[] iv2 = new byte[16];
+        random.nextBytes(iv2);
+        byte[] iv3 = new byte[16];
+        random.nextBytes(iv3);
 
-            System.out.println("Senha criptografada: " + Base64.getEncoder().encodeToString(encryptedPassword));
+        System.out.println("Criptografando senhas com o AES");
 
-            byte[] decryptedPassword = crypto.decryptPassword(encryptedPassword, iv);
-            System.out.println("Senha descriptografada: " + new String(decryptedPassword));
+        System.out.println("\nUtilizando o modo de operação CBC");
 
-            System.out.println();
-        }
+        byte[] encryptedPasswordCBC = cryptoAES.encryptPassword(passwords[0], "CBC", iv1);
+        byte[] decryptedPasswordCBC = cryptoAES.decryptPassword(encryptedPasswordCBC, "CBC", iv1);
 
+        System.out.println("\nSenha criptografada: " + Base64.getEncoder().encodeToString(encryptedPasswordCBC));
+        System.out.println("Senha descriptografada: " + new String(decryptedPasswordCBC));
 
+        System.out.println("\nUtilizando o modo de operação CFB");
 
+        byte[] encryptedPasswordCFB = cryptoAES.encryptPassword(passwords[0], "CFB", iv2);
+        byte[] decryptedPasswordCFB = cryptoAES.decryptPassword(encryptedPasswordCFB, "CFB", iv2);
 
+        System.out.println("\nSenha criptografada: " + Base64.getEncoder().encodeToString(encryptedPasswordCFB));
+        System.out.println("Senha descriptografada: " + new String(decryptedPasswordCFB));
+
+        System.out.println("\nUtilizando o modo de operação OFB");
+
+        byte[] encryptedPasswordOFB = cryptoAES.encryptPassword(passwords[0], "OFB", iv3);
+        byte[] decryptedPasswordOFB = cryptoAES.decryptPassword(encryptedPasswordOFB, "OFB", iv3);
+
+        System.out.println("\nSenha criptografada: " + Base64.getEncoder().encodeToString(encryptedPasswordOFB));
+        System.out.println("Senha descriptografada: " + new String(decryptedPasswordOFB));
 
 
     }

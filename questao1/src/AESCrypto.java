@@ -7,11 +7,12 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AESCrypto {
     private static SecretKey secretKey;
-    private final String key = "#modalGR#GPTW#top#maiorEmpresaTecnologia#baixadaSantista";
 
-    public AESCrypto(byte[] salt) {
+    public AESCrypto() {
         try {
-            PBEKeySpec pbeKeySpec = new PBEKeySpec(key.toCharArray(), salt, 10000, 128);
+            byte[] salt = new byte[16];
+            String KEY = "#modalGR#GPTW#top#maiorEmpresaTecnologia#baixadaSantista";
+            PBEKeySpec pbeKeySpec = new PBEKeySpec(KEY.toCharArray(), salt, 10000, 128);
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             SecretKey tmp = factory.generateSecret(pbeKeySpec);
             secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
@@ -20,9 +21,9 @@ public class AESCrypto {
         }
     }
 
-    public byte[] encryptPassword(String password, byte[] iv) {
+    public byte[] encryptPassword(String password, String mode, byte[] iv) {
         try {
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("AES/" + mode + "/PKCS5Padding");
             IvParameterSpec ivSpec = new IvParameterSpec(iv);
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivSpec);
 
@@ -33,9 +34,9 @@ public class AESCrypto {
         }
     }
 
-    public byte[] decryptPassword(byte[] encryptedPassword, byte[] iv) {
+    public byte[] decryptPassword(byte[] encryptedPassword, String mode, byte[] iv) {
         try {
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("AES/" + mode + "/PKCS5Padding");
             IvParameterSpec ivSpec = new IvParameterSpec(iv);
             cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
 
@@ -45,4 +46,5 @@ public class AESCrypto {
             return null;
         }
     }
+
 }
