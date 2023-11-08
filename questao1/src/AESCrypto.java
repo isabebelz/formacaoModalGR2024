@@ -5,9 +5,15 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+/**
+ * Classe responsável por criptografar e descriptografar senhas usando o algoritmo AES.
+ */
 public class AESCrypto {
     private static SecretKey secretKey;
 
+    /**
+     * Construtor da classe que inicializa a chave secreta a ser usada para criptografia.
+     */
     public AESCrypto() {
         try {
             byte[] salt = new byte[16];
@@ -21,6 +27,14 @@ public class AESCrypto {
         }
     }
 
+    /**
+     * Criptografa uma senha utilizando o algoritmo AES com o modo de operação especificado.
+     *
+     * @param password A senha a ser criptografada.
+     * @param mode O modo de operação (por exemplo, "CBC", "CFB", "OFB").
+     * @param iv O vetor de inicialização a ser usado na criptografia.
+     * @return O array de bytes representando a senha criptografada.
+     */
     public byte[] encryptPassword(String password, String mode, byte[] iv) {
         try {
             Cipher cipher = Cipher.getInstance("AES/" + mode + "/PKCS5Padding");
@@ -34,6 +48,14 @@ public class AESCrypto {
         }
     }
 
+    /**
+     * Descriptografa uma senha criptografada utilizando o algoritmo AES com o modo de operação especificado.
+     *
+     * @param encryptedPassword O array de bytes representando a senha criptografada.
+     * @param mode O modo de operação (por exemplo, "CBC", "CFB", "OFB").
+     * @param iv O vetor de inicialização a ser usado na descriptografia.
+     * @return A senha descriptografada como array de bytes.
+     */
     public byte[] decryptPassword(byte[] encryptedPassword, String mode, byte[] iv) {
         try {
             Cipher cipher = Cipher.getInstance("AES/" + mode + "/PKCS5Padding");
@@ -46,5 +68,5 @@ public class AESCrypto {
             return null;
         }
     }
-
 }
+

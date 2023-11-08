@@ -2,6 +2,9 @@ import java.text.ParseException;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ * Classe principal que implementa um programa de empréstimo para funcionários da ModalGR.
+ */
 public class Main {
     public static void main(String[] args) throws ParseException {
 
@@ -28,9 +31,10 @@ public class Main {
             loanValue = sc.nextDouble();
         }
 
+        // Verifica se o funcionário é elegível para simular um empréstimo
         boolean canSimulateLoan =  LoanSimulator.isEligible(Collaborator.calculateHomeTime(collaborator.getHiringDate()), collaborator.getSalary(), loanValue);
 
-        if(canSimulateLoan) {
+        if (canSimulateLoan) {
             System.out.println("\nDigite o número correspondente a opção de retirada:");
             System.out.println("1. Notas de maior valor considerando primeiramente as notas de 100 e 50 reais, e em seguida, as inferiores (20, 10, 5 e 2 reais)");
             System.out.println("2. Notas de menor valor (20, 10, 5 e 2 reais)");
@@ -39,7 +43,7 @@ public class Main {
 
             int withdraw = sc.nextInt();
 
-            if(withdraw == 4) {
+            if (withdraw == 4) {
                 System.exit(0);
             } else {
                 LoanSimulator.simulateLoan(loanValue, withdraw);

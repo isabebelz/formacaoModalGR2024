@@ -1,12 +1,9 @@
-package main;
-
-import files.BirthdayMonthFileCreator;
-import files.DataFileReader;
-import search.BirthdayMonthSearch;
-
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Classe principal responsável por realizar tarefas relacionadas ao aniversário de consultores.
+ */
 public class Main {
     public static void main(String[] args) {
 
@@ -18,15 +15,11 @@ public class Main {
 
             List<String> consultantData = DataFileReader.readFile();
 
-            List<String> birthdays =  BirthdayMonthSearch.dateBirth(consultantData,currentMonth);
-
-            System.out.println(consultantData);
-            System.out.println();
-            System.out.println(birthdays);
+            List<String> birthdays =  BirthdayMonthSearch.dateBirth(consultantData, currentMonth);
 
             BirthdayMonthFileCreator.birthdayMonthFile(birthdays);
         }
-
     }
 }
+
 

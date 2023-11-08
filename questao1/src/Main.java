@@ -1,6 +1,9 @@
 import java.security.SecureRandom;
 import java.util.Base64;
 
+/**
+ * Classe principal que demonstra o uso do AESCrypto para criptografar e descriptografar senhas.
+ */
 public class Main {
     public static void main(String[] args) {
 
@@ -10,6 +13,7 @@ public class Main {
 
         SecureRandom random = new SecureRandom();
 
+        // Vetores de inicialização (IV) para diferentes modos de operação
         byte[] iv1 = new byte[16];
         random.nextBytes(iv1);
         byte[] iv2 = new byte[16];
@@ -42,7 +46,6 @@ public class Main {
 
         System.out.println("\nSenha criptografada: " + Base64.getEncoder().encodeToString(encryptedPasswordOFB));
         System.out.println("Senha descriptografada: " + new String(decryptedPasswordOFB));
-
-
     }
 }
+
