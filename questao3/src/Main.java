@@ -12,9 +12,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Locale.setDefault(Locale.US);
 
-        System.out.print("Nome: ");
+        System.out.print("\nNome: ");
         String name = sc.nextLine();
-        System.out.print("Data de admissão no formato (dd/MM/yyyy): ");
+        System.out.print("Data de admissão (formato dd/MM/yyyy): ");
         String hiringDate = sc.next();
         System.out.print("Salário atual: ");
         double salary = sc.nextDouble();
@@ -28,10 +28,10 @@ public class Main {
             loanValue = sc.nextDouble();
         }
 
-        boolean canSimulateLoan =  Analyzer.canSimulateLoan(Analyzer.calculateHomeTime(collaborator.getHiringDate()), collaborator.getSalary(), loanValue);
+        boolean canSimulateLoan =  LoanSimulator.isEligible(Collaborator.calculateHomeTime(collaborator.getHiringDate()), collaborator.getSalary(), loanValue);
 
         if(canSimulateLoan) {
-            System.out.println("Digite o número correspondente a opção de retirada:");
+            System.out.println("\nDigite o número correspondente a opção de retirada:");
             System.out.println("1. Notas de maior valor considerando primeiramente as notas de 100 e 50 reais, e em seguida, as inferiores (20, 10, 5 e 2 reais)");
             System.out.println("2. Notas de menor valor (20, 10, 5 e 2 reais)");
             System.out.println("3. Notas meio a meio (50% em notas de maior valor e 50% em notas de menor valor)");

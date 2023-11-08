@@ -1,5 +1,6 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Collaborator {
@@ -16,7 +17,6 @@ public class Collaborator {
         this.hiringDate = dateFormat.parse(hiringDate);
 
     }
-
 
     public String getName() {
         return name;
@@ -36,5 +36,22 @@ public class Collaborator {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public static int calculateHomeTime(Date hiringDate) {
+        Calendar currentDate = Calendar.getInstance();
+
+        Calendar hiringDateCalendar = Calendar.getInstance();
+        hiringDateCalendar.setTime(hiringDate);
+
+        int yearsHome = currentDate.get(Calendar.YEAR) - hiringDateCalendar.get(Calendar.YEAR);
+
+        if(currentDate.get(Calendar.MONTH) < hiringDateCalendar.get(Calendar.MONTH) || currentDate.get(Calendar.MONTH) == hiringDateCalendar.get(Calendar.MONTH) && currentDate.get(Calendar.DAY_OF_MONTH) < hiringDateCalendar.get(Calendar.DAY_OF_MONTH)) {
+            yearsHome--;
+        } else {
+            yearsHome++;
+        }
+
+        return yearsHome;
     }
 }
