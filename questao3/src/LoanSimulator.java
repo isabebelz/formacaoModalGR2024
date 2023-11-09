@@ -53,6 +53,16 @@ public class LoanSimulator {
         }
     }
 
+
+    /**
+     * Este método calcula a quantidade de cédulas necessárias para representar um valor monetário em reais
+     * usando as denominações de cédulas fornecidas.
+     *
+     * @param loanValue O valor monetário que deve ser representado em cédulas.
+     * @param notes Um array de inteiros contendo as denominações das cédulas disponíveis em ordem decrescente.
+     * @param i O índice atual no array 'notes' que indica qual denominação de cédula está sendo avaliada.
+     * @param title Uma string que descreve o título ou finalidade da impressão das cédulas calculadas.
+     */
     public static void moneyNotes(double loanValue, int[] notes, int i, String title) {
 
         List<String> moneyNotes = new ArrayList<>();

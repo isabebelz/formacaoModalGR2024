@@ -76,12 +76,6 @@ public class Main {
             }
         }
 
-
-        while (loanValue % 2 != 0) {
-            System.out.println("Insira um valor válido!");
-            loanValue = sc.nextDouble();
-        }
-
         // Verifica se o funcionário é elegível para simular um empréstimo
         boolean canSimulateLoan =  LoanSimulator.isEligible(Collaborator.calculateHomeTime(collaborator.getHiringDate()), collaborator.getSalary(), loanValue);
 
