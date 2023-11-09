@@ -11,6 +11,15 @@ public class Main {
 
         System.out.println("PROGRAMA DE EMPRÉSTIMO MODALGR");
 
+        System.out.println("""
+                \nRequisitos para Solicitar Empréstimo:
+                
+                Para participar do programa, o colaborador deve atender aos seguintes critérios:
+                1. Tempo de casa superior a 5 anos.
+                2. Poderá simular um empréstimo de até 2 vezes o valor de seu salário,
+                   desde que esse valor seja múltiplo de 2.\s""");
+
+
         System.out.println("\nDigite seus dados e iremos avaliar se o seu perfil atende os requisitos mínimos do programa");
 
         Scanner sc = new Scanner(System.in);
@@ -57,7 +66,6 @@ public class Main {
         check = false;
         double loanValue = 0.0;
 
-        System.out.println("O valor do empréstimo precisa ser multiplo de 2.");
         while (!check) {
             System.out.print("Valor do empréstimo: ");
             String input = sc.next();
@@ -66,18 +74,13 @@ public class Main {
                 loanValue = Double.parseDouble(input);
                 check = true;
 
-                if(loanValue % 2 != 0) {
-                    System.out.println("Insira um valor válido!");
-                    check = false;
-                }
-
             } catch (NumberFormatException e) {
                 System.out.println("Valor em formato inválido!");
             }
         }
 
         // Verifica se o funcionário é elegível para simular um empréstimo
-        boolean canSimulateLoan =  LoanSimulator.isEligible(Collaborator.calculateHomeTime(collaborator.getHiringDate()), collaborator.getSalary(), loanValue);
+        boolean canSimulateLoan =  LoanSimulator.isEligible(Collaborator.calculateHomeTime(collaborator.getHiringDate()), salary, loanValue);
 
         if (canSimulateLoan) {
             System.out.println("\nDigite o número correspondente a opção de retirada:");
@@ -88,6 +91,8 @@ public class Main {
 
             int withdraw = sc.nextInt();
 
+            sc.close();
+
             if (withdraw == 4) {
                 System.exit(0);
             } else {
@@ -95,9 +100,8 @@ public class Main {
             }
 
         } else {
+            System.out.println("Agradecemos seu interesse, mas você não atende os requisitos mínimos do programa.\n");
             System.exit(0);
         }
-
-        sc.close();
     }
 }
