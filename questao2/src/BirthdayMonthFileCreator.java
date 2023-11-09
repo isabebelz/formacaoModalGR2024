@@ -17,10 +17,8 @@ public class BirthdayMonthFileCreator {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("consultant_data\\birthdays.txt"))) {
 
-            // Escreve um cabeçalho no arquivo.
             bw.write("BIRTHDAYS OF THE MONTH");
 
-            // Escreve cada aniversariante em uma nova linha.
             for (String line : birthdays) {
                 bw.newLine();
                 bw.write(line);

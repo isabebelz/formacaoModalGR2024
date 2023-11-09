@@ -25,27 +25,38 @@ public class LoanSimulator {
      * @param withdraw Opção de retirada (1 - Notas de maior valor, 2 - Notas de menor valor, 3 - Notas meio a meio).
      */
     public static void simulateLoan(double loanValue, int withdraw) {
-        List<String> moneyNotes = new ArrayList<>();
-        int r;
 
-        int[] notes;
+        int[] notes = {100, 50, 20, 10, 5, 2};
         String title;
-        double loanValue2 = 0.0;
+        int i;
 
         if (withdraw == 1) {
-            notes = new int[]{100, 50, 20, 10, 5, 2};
+            i = 0;
             title = "Notas de maior valor:";
+            moneyNotes(loanValue, notes, i, title);
         } else if (withdraw == 2) {
-            notes = new int[]{20, 10, 5, 2};
+            i = 2;
             title = "Notas de menor valor:";
+            moneyNotes(loanValue, notes, i, title);
         } else {
-            notes = new int[]{100, 50, 20, 10, 5, 2};
-            title = "Notas meio a meio:";
-            loanValue /= 2;
-            loanValue2 = loanValue;
+            for (i = 0; i < 2; i++) {
+                if(i == 0) {
+                    title = "Notas meio a meio:\nNotas de maior valor:";
+                } else {
+                    title = "Notas de menor valor:";
+                }
+                if(i == 1) {
+                    i = 2;
+                }
+                moneyNotes((loanValue / 2), notes, i, title);
+            }
         }
+    }
 
-        int i = 0;
+    public static void moneyNotes(double loanValue, int[] notes, int i, String title) {
+
+        List<String> moneyNotes = new ArrayList<>();
+        int r;
 
         while (loanValue != 1 && i < notes.length) {
             r = (int) (loanValue / notes[i]);
@@ -57,22 +68,11 @@ public class LoanSimulator {
             i++;
         }
 
-        i = 2;
-
-        while (loanValue2 != 1 && i < notes.length) {
-            r = (int) (loanValue2 / notes[i]);
-            if (r > 0) {
-                moneyNotes.add(r + " x " + notes[i] + " reais");
-            }
-            r *= notes[i];
-            loanValue2 -= r;
-            i++;
-        }
-
         System.out.println(title);
 
-        for (String note : moneyNotes) {
-            System.out.println(" > " + note);
+        for(String note : moneyNotes) {
+            System.out.println("> " + note);
         }
+
     }
 }
